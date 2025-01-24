@@ -1,0 +1,132 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="party zone.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thepartiezone_</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+    <script src="js/auth-service.js"></script>
+</head>
+<body>
+    <header>
+        <nav aria-label="Main navigation">
+            <div class="container">
+                <div>
+                    <a href="index.html" class="logo" aria-label="Party Zone Home">
+                        <img src="party zone.png" alt="Party Zone Logo">
+                    </a>
+                    <h1>thepartiezone_</h1>
+                </div>
+              <!-- Common navigation update for all HTML files -->
+              <div class="nav-links" role="navigation">
+                    <a href="index.html">Home</a>
+                     <a href="events.html">Events</a>
+                     <a href="contact.html">Contact</a>
+                <div id="authLinks">
+        <!-- Will be populated by auth-service.js -->
+                </div>
+                    </div>
+                <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+
+    <section class="events-section">
+        <div class="container">
+            <div class="events-header">
+                <h2 class="section-title visible">Upcoming Events</h2>
+            </div>
+            <div class="event-grid">
+                <div class="event-card visible" style="opacity: 1; transform: translateY(0px); transition: 0.6s ease-out;">
+                    <div class="event-date">
+                        <span class="day">14</span>
+                        <span class="month">Feb</span>
+                    </div>
+                    <img src="Karim Crstiano & Fares Sokar.jpg" alt="Summer Bash Event">
+                    <div class="event-info">
+                        <h3>Karim Crstiano &amp; Fares Sokar</h3>
+                        <p class="event-location"><i class="fas fa-map-marker-alt"></i> cafe talinda house, Cairo</p>
+                        <p class="event-time"><i class="far fa-clock"></i> 7:00 PM</p>
+                        <p class="event-description"></p>
+                        <a href="event-details.html" class="button-group">View Details</a>
+                    </div>
+                </div>
+                
+                
+
+                
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/people/PARTY-ZONE/100093263652308/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/thepartieszone_/"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>© 2025 Partyzone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        function isLoggedIn() {
+            return localStorage.getItem('userLoggedIn') === 'true';
+        }
+
+        function updateAuthDisplay() {
+            const loginLink = document.getElementById('loginLink');
+            const logoutLink = document.getElementById('logoutLink');
+            const userDisplay = document.getElementById('userDisplay');
+            
+            if (isLoggedIn()) {
+                loginLink.style.display = 'none';
+                logoutLink.style.display = 'inline';
+                userDisplay.style.display = 'inline';
+                userDisplay.textContent = localStorage.getItem('username');
+            } else {
+                loginLink.style.display = 'inline';
+                logoutLink.style.display = 'none';
+                userDisplay.style.display = 'none';
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthDisplay();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            authService.init();
+            
+            // Check if user is logged in
+            const currentUser = authService.currentUser;
+            if (currentUser) {
+                console.log('Welcome back:', currentUser.name);
+            }
+
+            // Add menu button functionality
+            const menuBtn = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn?.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                menuBtn.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+</body></html>

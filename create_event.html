@@ -1,0 +1,168 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="party zone.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thepartiezone_</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+    <script src="js/auth-service.js"></script>
+</head>
+<body>
+    <header>
+        <nav aria-label="Main navigation">
+            <div class="container">
+                <div>
+                    <a href="index.html" class="logo" aria-label="Party Zone Home">
+                        <img src="party zone.png" alt="Party Zone Logo">
+                    </a>
+                    <h1>thepartiezone_</h1>
+                </div>
+              <!-- Common navigation update for all HTML files -->
+              <div class="nav-links" role="navigation">
+                    <a href="index.html">Home</a>
+                     <a href="events.html">Events</a>
+                     <a href="contact.html">Contact</a>
+                <div id="authLinks">
+        <!-- Will be populated by auth-service.js -->
+                </div>
+                    </div>
+                <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+                <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+
+    <main>
+        <section class="create-event-section">
+            <div class="container">
+                <h2 class="section-title">Create New Event</h2>
+                <form id="create-event-form" class="create-event-form" onsubmit="return validateEventForm(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" id="event-name" name="event-name" required>
+                            <label for="event-name">Event Name</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="date" id="event-date" name="event-date" required>
+                            <label for="event-date">Date</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="time" id="event-time" name="event-time" required>
+                            <label for="event-time">Time</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="event-location" name="event-location" required>
+                            <label for="event-location">Location</label>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <textarea id="event-description" name="event-description" required></textarea>
+                            <label for="event-description">Event Description</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" id="event-price" name="event-price" min="0" required>
+                            <label for="event-price">Ticket Price (EGP)</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" id="event-capacity" name="event-capacity" min="1" required>
+                            <label for="event-capacity">Capacity</label>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <input type="file" id="event-image" name="event-image" accept="image/*" required>
+                            <label for="event-image">Event Image</label>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="submit-btn">Create Event</button>
+                        <button type="reset" class="reset-btn">Reset Form</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- ...existing footer code... -->
+    </footer>
+
+    <script>
+        function validateEventForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('event-name').value;
+            const date = document.getElementById('event-date').value;
+            const time = document.getElementById('event-time').value;
+            const location = document.getElementById('event-location').value;
+            const description = document.getElementById('event-description').value;
+            const price = document.getElementById('event-price').value;
+            const capacity = document.getElementById('event-capacity').value;
+            const image = document.getElementById('event-image').files[0];
+
+            // Basic validation
+            if (!name || !date || !time || !location || !description || !price || !capacity || !image) {
+                alert('Please fill in all fields');
+                return false;
+            }
+
+            // Date validation
+            const selectedDate = new Date(date);
+            const today = new Date();
+            if (selectedDate < today) {
+                alert('Event date cannot be in the past');
+                return false;
+            }
+
+            // Price validation
+            if (price < 0) {
+                alert('Price cannot be negative');
+                return false;
+            }
+
+            // Capacity validation
+            if (capacity < 1) {
+                alert('Capacity must be at least 1');
+                return false;
+            }
+
+            // If all validations pass
+            return true;
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            authService.init();
+            
+            // Check if user is logged in
+            const currentUser = authService.currentUser;
+            if (currentUser) {
+                console.log('Welcome back:', currentUser.name);
+            }
+
+            // Add menu button functionality
+            const menuBtn = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn?.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                menuBtn.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+</body>
+</html>

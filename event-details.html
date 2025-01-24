@@ -1,0 +1,310 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="party zone.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thepartiezone_</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+    <script src="js/auth-service.js"></script>
+</head>
+<body>
+    <header>
+        <nav aria-label="Main navigation">
+            <div class="container">
+                <div>
+                    <a href="index.html" class="logo" aria-label="Party Zone Home">
+                        <img src="party zone.png" alt="Party Zone Logo">
+                    </a>
+                    <h1>thepartiezone_</h1>
+                </div>
+              <!-- Common navigation update for all HTML files -->
+<div class="nav-links" role="navigation">
+    <a href="index.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="contact.html">Contact</a>
+    <div id="authLinks">
+        <!-- Will be populated by auth-service.js -->
+    </div>
+</div>
+                <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="event-details-section">
+            <div class="container">
+                <div class="event-details-container">
+                    <div class="event-image">
+                        <img src="Karim Crstiano &amp; Fares Sokar.jpg" alt="Event Image">
+                    </div>
+                    <div class="event-info-detailed">
+                        <h1>Karim Crstiano &amp; Fares Sokar</h1>
+                        <div class="event-meta">
+                            <p><i class="fas fa-calendar"></i> February 14, 2024</p>
+                            <p><i class="fas fa-clock"></i> 7:00 PM</p>
+                            <p><i class="fas fa-map-marker-alt"></i> cafe talinda house, Cairo</p>
+                        </div>
+                        <div class="event-description">
+                            <h2>Event Description</h2>
+                            <p>Join us for an amazing night with Karim Crstiano &amp; Fares Sokar. Experience great music and unforgettable moments.</p>
+                        </div>
+                        <div class="ticket-options">
+                            <h2>Ticket Options</h2>
+                            <div class="ticket-types">
+                                <div class="ticket-type">
+                                    <h3>Regular Ticket</h3>
+                                    <p class="price">300 EGP</p>
+                                    <button class="book-btn">Purchase Ticket</button>
+                                </div>
+                                <div class="ticket-type">
+                                    <h3>VIP Ticket</h3>
+                                    <p class="price">500 EGP</p>
+                                    <button class="book-btn">Purchase Ticket</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-button-container">
+                            <a href="contact.html" class="contact-button">
+                                <i class="fas fa-envelope"></i> Contact Us
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/people/PARTY-ZONE/100093263652308/" aria-label="Visit our Facebook page"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/thepartieszone_/" aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>© 2025 Partyzone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Payment Confirmation Modal -->
+    <div id="paymentModal" class="modal" aria-labelledby="modalTitle" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <span class="close-modal" aria-label="Close modal">&times;</span>
+            <h2 id="modalTitle">Confirm Purchase</h2>
+            <div class="payment-details">
+                <!-- Event Summary Section -->
+                <div class="event-summary">
+                    <h3>Event Details</h3>
+                    <div class="event-summary-content">
+                        <div class="summary-row">
+                            <i class="fas fa-calendar"></i>
+                            <div class="event-date-details">
+                                <span class="date event-date">Wednesday, February 14, 2024</span>
+                                <span class="time event-time">7:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="summary-row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="event-location">cafe talinda house, Cairo</span>
+                        </div>
+                        <div class="summary-row">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span class="ticket-info">Regular Ticket</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary Section -->
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="ticket-details">
+                        <p class="ticket-info"></p>
+                        <p class="ticket-quantity">Quantity: 1</p>
+                    </div>
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Ticket Price</span>
+                            <span class="subtotal">300.00 EGP</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Service Fee (5%)</span>
+                            <span class="service-fee">15.00 EGP</span>
+                        </div>
+                        <div class="price-row vat">
+                            <span>VAT (14%)</span>
+                            <span class="vat-amount">42.00 EGP</span>
+                        </div>
+                        <div class="price-row total">
+                            <strong>Total Amount</strong>
+                            <strong class="total-amount">357.00 EGP</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-options">
+                        <button class="payment-method" data-method="credit-card" aria-selected="false">
+                            <i class="fas fa-credit-card" aria-hidden="true"></i> Credit Card
+                            <span class="payment-info">Visa, MasterCard</span>
+                        </button>
+                        <button class="payment-method" data-method="vodafone-cash" aria-selected="false">
+                            <i class="fas fa-mobile-alt" aria-hidden="true"></i> Vodafone Cash
+                            <span class="payment-info">Instant Transfer</span>
+                        </button>
+                        <button class="payment-method" data-method="fawry" aria-selected="false">
+                            <i class="fas fa-store" aria-hidden="true"></i> Fawry
+                            <span class="payment-info">Pay at nearest outlet</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unified Payment Form -->
+                <form id="paymentForm" class="payment-form" novalidate>
+                    <h3>Billing Information</h3>
+                    <div class="form-group">
+                        <input type="text" id="fullName" required>
+                        <label for="fullName">Full Name</label>
+                        <span class="error-message" aria-live="polite"></span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="email" id="email" required>
+                            <label for="email">Email Address</label>
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" required pattern="[0-9]{11}">
+                            <label for="phone">Phone Number</label>
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Method Specific Fields -->
+                    <div id="paymentMethodFields">
+                <div class="payment-details-section vodafone-cash-details">
+                    <h4>Vodafone Cash Payment</h4>
+                    <div class="wallet-number">Wallet: 0123456789</div>
+                    <div class="payment-instructions">
+                        <h4>How to Pay:</h4>
+                        <ol>
+                            <li>Open your Vodafone Cash app</li>
+                            <li>Select "Pay" or "Transfer"</li>
+                            <li>Enter the wallet number shown above</li>
+                            <li>Enter the amount: <span class="total-amount"></span></li>
+                            <li>Confirm payment and save your transaction ID</li>
+                        </ol>
+                    </div>
+                    <div class="payment-note">
+                        <i class="fas fa-info-circle"></i> Your ticket will be sent once payment is confirmed
+                    </div>
+                </div>
+
+                <div class="payment-details-section fawry-details">
+                    <h4>Fawry Payment</h4>
+                    <div class="fawry-code">CODE: 123456789</div>
+                    <div class="payment-instructions">
+                        <h4>How to Pay:</h4>
+                        <ol>
+                            <li>Visit any Fawry outlet</li>
+                            <li>Show this Fawry code</li>
+                            <li>Pay the amount: <span class="total-amount"></span></li>
+                            <li>Keep your receipt</li>
+                        </ol>
+                    </div>
+                    <div class="payment-note">
+                        <i class="fas fa-info-circle"></i> Your ticket will be issued within 2 hours of payment
+                    </div>
+                </div>
+
+                <!-- Billing Information -->
+                <form id="paymentForm" class="payment-form">
+                    <h3>Billing Information</h3>
+                    <div class="form-group">
+                        <input type="text" id="fullName" required="">
+                        <label for="fullName">Full Name</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="email" id="email" required="">
+                            <label for="email">Email Address</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" required="">
+                            <label for="phone">Phone Number</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Credit Card Fields -->
+                    <div id="creditCardFields" style="display: none;">
+                        <h4>Card Details</h4>
+                        <div class="form-group">
+                            <input type="text" id="cardNumber" pattern="\d*" maxlength="16">
+                            <label for="cardNumber">Card Number</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="expiry" maxlength="5" placeholder="MM/YY">
+                                <label for="expiry">Expiry Date</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="cvv" maxlength="3">
+                                <label for="cvv">CVV</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Privacy -->
+                    <div class="terms-section">
+                        <div class="terms-group">
+                            <input type="checkbox" id="terms" required="">
+                            <label for="terms">I agree to the Terms &amp; Conditions and Privacy Policy</label>
+                        </div>
+                        <div class="terms-group">
+                            <input type="checkbox" id="newsletter">
+                            <label for="newsletter">Send me updates about future events</label>
+                        </div>
+                    </div>
+
+                    <p class="security-note">
+                        <i class="fas fa-lock"></i> Your payment information is secure and encrypted
+                    </p>
+
+                    <button type="submit" id="confirmPayment" class="confirm-btn">
+                        Confirm Payment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            authService.init();
+            
+            // Check if user is logged in
+            const currentUser = authService.currentUser;
+            if (currentUser) {
+                console.log('Welcome back:', currentUser.name);
+            }
+
+            // Add menu button functionality
+            const menuBtn = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn?.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                menuBtn.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+
+
+</body></html>

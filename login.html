@@ -1,0 +1,209 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="party zone.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thepartiezone_</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+    <script src="js/auth-service.js"></script>
+</head>
+<body>
+    <header>
+        <nav aria-label="Main navigation">
+            <div class="container">
+                <div>
+                    <a href="index.html" class="logo" aria-label="Party Zone Home">
+                        <img src="party zone.png" alt="Party Zone Logo">
+                    </a>
+                    <h1>thepartiezone_</h1>
+                </div>
+              <!-- Common navigation update for all HTML files -->
+              <div class="nav-links" role="navigation">
+                    <a href="index.html">Home</a>
+                     <a href="events.html">Events</a>
+                     <a href="contact.html">Contact</a>
+                <div id="authLinks">
+        <!-- Will be populated by auth-service.js -->
+                </div>
+                    </div>
+                <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="login-section">
+            <div class="container">
+                <div class="login-container">
+                    <h2>Login</h2>
+                    <div id="error-message" class="error-message" style="display: none;"></div>
+                    <form id="loginForm" class="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <input type="text" id="username" required>
+                            <label for="username">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" required>
+                            <label for="password">Password</label>
+                        </div>
+                        <button type="submit" class="submit-btn">Login</button>
+                    </form>
+                    <div class="form-options">
+                        <a href="#" class="forgot-password-link" onclick="showForgotPassword(event)">Forgot Password?</a>
+                    </div>
+                    <p class="register-link">Don't have an account? <a href="register.html">Register</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/people/PARTY-ZONE/100093263652308/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/thepartieszone_/"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>&copy; 2025 Partyzone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="js/auth-service.js"></script>
+
+    <script>
+        // Properly initialize Apollo Client
+        const { ApolloClient, InMemoryCache, gql } = apolloClient.core;
+        
+        const client = new ApolloClient({
+            uri: 'https://your-graphql-endpoint.com/graphql',
+            cache: new InMemoryCache(),
+            credentials: 'include'
+        });
+
+        const LOGIN_MUTATION = gql`
+            mutation Login($email: String!, $password: String!) {
+                login(email: $email, password: $password) {
+                    token
+                    user {
+                        id
+                        name
+                        email
+                        phone
+                    }
+                }
+            }
+        `;
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            try {
+                const user = authService.login(email, password);
+                authService.updateNavigation(); // Add this line
+                
+                // Show welcome message
+                alert(`Welcome back, ${user.name}!`);
+                
+                // Redirect to home page
+                window.location.href = 'index.html';
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function showForgotPassword(event) {
+            event.preventDefault();
+            document.getElementById('forgotPasswordModal').style.display = 'block';
+        }
+
+        function closeForgotPassword() {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+        }
+
+        function handleResetPassword(event) {
+            event.preventDefault();
+            const resetEmail = document.getElementById('resetEmail').value;
+            const errorMessage = document.getElementById('error-message');
+
+            try {
+                authService.resetPassword(resetEmail);
+                alert('Password reset instructions sent to your email');
+                closeForgotPassword();
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        // Update the form input label from Username to Email
+        document.addEventListener('DOMContentLoaded', () => {
+            const usernameLabel = document.querySelector('label[for="username"]');
+            if (usernameLabel) {
+                usernameLabel.textContent = 'Email';
+            }
+            authService.updateNavigation(); // Add this line
+        });
+        </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            authService.init();
+            
+            // Check if user is logged in
+            const currentUser = authService.currentUser;
+            if (currentUser) {
+                console.log('Welcome back:', currentUser.name);
+            }
+
+            // Add menu button functionality
+            const menuBtn = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn?.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                menuBtn.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+        
+            if (authService.login(email, password)) {
+                if (authService.isAdmin()) {
+                    window.location.href = 'admin/dashboard.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } else {
+                alert('Invalid credentials');
+            }
+        });
+    </script>
+
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeForgotPassword()">&times;</span>
+            <h2>Reset Password</h2>
+            <form id="forgotPasswordForm" onsubmit="handleResetPassword(event)">
+                <div class="form-group">
+                    <input type="email" id="resetEmail" name="resetEmail" required>
+                    <label for="resetEmail">Email</label>
+                </div>
+                <button type="submit" class="submit-btn">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="party zone.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - PartyZone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+    <script src="js/auth-service.js"></script>
+</head>
+<body>
+    <header>
+        <nav aria-label="Main navigation">
+            <div class="container">
+                <div>
+                    <a href="index.html" class="logo" aria-label="Party Zone Home">
+                        <img src="party zone.png" alt="Party Zone Logo">
+                    </a>
+                    <h1>thepartiezone_</h1>
+                </div>
+              <!-- Common navigation update for all HTML files -->
+              <div class="nav-links" role="navigation">
+                    <a href="index.html">Home</a>
+                     <a href="events.html">Events</a>
+                     <a href="contact.html">Contact</a>
+                <div id="authLinks">
+        <!-- Will be populated by auth-service.js -->
+                </div>
+                    </div>
+                <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="login-section">
+            <div class="container">
+                <div class="login-container">
+                    <h2>Create Account</h2>
+                    <div id="error-message" class="error-message" style="display: none;"></div>
+                    <form id="registrationForm" class="registration-form">
+                        <div class="form-group">
+                            <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="phone" pattern="[0-9]{11}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password"><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+                            <input type="password" id="confirmPassword" required>
+                        </div>
+
+                        <button type="submit" class="register-btn">Create Account</button>
+                        <p class="register-link">Already have an account? <a href="login.html">Login</a></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/people/PARTY-ZONE/100093263652308/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/thepartieszone_/"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>&copy; 2025 Partyzone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Replace the validateForm function in the existing script tag -->
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // Create user object
+            const user = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+
+            // Store user data (In a real app, this would be sent to a server)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(user);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful!');
+            window.location.href = 'login.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            authService.init();
+            
+            // Check if user is logged in
+            const currentUser = authService.currentUser;
+            if (currentUser) {
+                console.log('Welcome back:', currentUser.name);
+            }
+
+            // Add menu button functionality
+            const menuBtn = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn?.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                menuBtn.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+
+    <style>
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .form-group input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</body>
+</html>
